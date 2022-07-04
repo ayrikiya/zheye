@@ -2,7 +2,7 @@
  * @Author: 王荣
  * @Date: 2020-10-15 11:23:59
  * @LastEditors: 王荣
- * @LastEditTime: 2022-06-07 10:32:39
+ * @LastEditTime: 2022-06-08 15:29:53
  * @Description: 填写简介
  */
 import { createApp } from 'vue'
@@ -35,6 +35,7 @@ axios.interceptors.response.use(config => {
   store.commit('setLoading', false)
   return Promise.reject(e.response.data)
 })
+
 // 创建vue应用实例
 const app = createApp(App)
 // 注册使用路由和vuex中心仓库

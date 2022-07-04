@@ -2,13 +2,16 @@
  * @Author: 王荣
  * @Date: 2020-10-15 11:23:59
  * @LastEditors: 王荣
- * @LastEditTime: 2022-06-08 14:46:22
+ * @LastEditTime: 2022-06-17 10:44:37
  * @Description: 填写简介
 -->
 <template>
   <div class="container">
+    <!-- v-bind指令 父组件向子组件传值 props方式传递 -->
     <global-header :user="currentUser"></global-header>
+    <!-- v-if指令 条件渲染 根据监听变量的boolean类型切换被绑定组件的显隐 -->
     <loader v-if="isLoading"></loader>
+    <!-- const app = createApp(App); app.use(router); 在App组件内通过router-view嵌入切换的路由 -->
     <router-view></router-view>
     <footer class="text-center py-4 text-secondary bg-light mt-6">
       <small>
@@ -26,13 +29,18 @@
 
 <script lang="ts">
 import { defineComponent, computed, onMounted, watch } from 'vue'
-import { useStore } from 'vuex'
-import axios from 'axios'
+// static
 import 'bootstrap/dist/css/bootstrap.min.css'
+// vuex
+import { useStore } from 'vuex'
+import { GlobalDataProps } from './store'
+// components
 import GlobalHeader from './components/GlobalHeader.vue'
 import Loader from './components/Loader.vue'
+//utils
 import createMessage from './components/createMessage'
-import { GlobalDataProps } from './store'
+import axios from 'axios'
+
 // defineComponent是为了支持ts vue3直接这么写composition api就行
 export default defineComponent({
   name: 'App',
@@ -57,12 +65,13 @@ export default defineComponent({
     // 包装对象也可以包装非原始值类型的对象，如数组等
     // 如果依然像创建一个没有包装的响应式对象。可以使用reactive API（和2.x的Vue.observable()等同）
     // 注意到在使用时虽然包装对象取它的值应该用.value访问，但是我们可以在模版中省略.value，它会自动展开。
-    // 当包装对象被暴露给模版渲染上下文，或者被嵌套在另一个响应式对象中时，它会被自动展开成它内部的值。
+    // 当包装对象被暴露给模版渲染上下文，或者被嵌套在另一个响应式对象中时，它会被自动展开成它内部的值。当一个包装对象被作为另一个响应式对象的属性引用的时候也会被自动展开 详见尤的知乎RFC。
 
     // 侦听属性 侦听error.value.status 如果发生改变则运行处理函数
     watch(() => error.value.status, () => {
       const { status, message } = error.value
       if (status && message) {
+        // 请求返回错误时弹出错误信息
         createMessage(message, 'error')
       }
     })

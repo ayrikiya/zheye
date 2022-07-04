@@ -1,9 +1,17 @@
+<!--
+ * @Author: 王荣
+ * @Date: 2020-10-15 11:23:59
+ * @LastEditors: 王荣
+ * @LastEditTime: 2022-06-17 17:50:32
+ * @Description: 填写简介
+-->
 <template>
 <div class="dropdown" ref="dropdownRef">
   <a href="#" class="btn btn-outline-light my-2 dropdown-toggle" @click.prevent="toggleOpen">
     {{title}}
   </a>
   <ul class="dropdown-menu" :style="{display: 'block'}" v-if="isOpen">
+    <!-- vue的slot：插槽 其实就是react中的render props: {this.props.children} -->
     <slot></slot>
   </ul>
 </div>
@@ -11,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
-import useClickOutside from '../hooks/useClickOutside'
+import useClickOutside from '../../hooks/useClickOutside'
 export default defineComponent({
   name: 'Dropdown',
   props: {

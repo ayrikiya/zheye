@@ -1,3 +1,10 @@
+<!--
+ * @Author: 王荣
+ * @Date: 2020-10-15 11:23:59
+ * @LastEditors: 王荣
+ * @LastEditTime: 2022-06-10 10:08:07
+ * @Description: 填写简介
+-->
 <template>
   <form class="validate-form-container">
     <slot name="default"></slot>
@@ -13,6 +20,9 @@
 import { defineComponent, onUnmounted } from 'vue'
 import mitt from 'mitt'
 type ValidateFunc = () => boolean
+
+// vue2x使用eventBus进行组件通信，而vue3推荐使用mitt
+// 足够小，200B，不依赖vue实例可以跨框架使用。
 export const emitter = mitt()
 export default defineComponent({
   emits: ['form-submit'],
